@@ -3,25 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8-bit Adventure UI</title>
+    <title>8-bit Audio Lab</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="background-grid"></div>
     <header class="hud">
-      <div class="hud__logo">PIXEL QUEST</div>
+      <div class="hud__logo">8-BIT AUDIO LAB</div>
       <div class="hud__stats">
         <div class="hud__stat">
-          <span class="hud__label">SCORE</span>
-          <span class="hud__value">001560</span>
+          <span class="hud__label">QUEUE</span>
+          <span class="hud__value hud__value--accent">03 TASKS</span>
         </div>
         <div class="hud__stat">
-          <span class="hud__label">WORLD</span>
-          <span class="hud__value">1-2</span>
+          <span class="hud__label">MODE</span>
+          <span class="hud__value">NES APU</span>
         </div>
         <div class="hud__stat">
-          <span class="hud__label">TIME</span>
-          <span class="hud__value">287</span>
+          <span class="hud__label">UPTIME</span>
+          <span class="hud__value">24H</span>
         </div>
       </div>
     </header>
@@ -29,37 +29,41 @@
     <main class="frame">
       <section class="screen">
         <div class="screen__header">
-          <span class="screen__title">LEVEL SELECT</span>
+          <span class="screen__title">CHIPTUNE CONVERTER</span>
           <div class="screen__lights">
             <span></span><span></span><span></span>
           </div>
         </div>
 
         <div class="screen__content">
-          <div class="sprite hero"></div>
+          <div class="sprite console"></div>
           <div class="screen__info">
-            <h1 class="screen__headline">FOREST RUN</h1>
+            <h1 class="screen__headline">Из любого трека в саундтрек эпохи NES</h1>
             <p class="screen__text">
-              Прыгайте по пиксельным платформам, собирайте монеты и избегайте
-              ретро-монстров. Мир выполнен в стилистике приставок Sega и Dendy
-              с контрастными цветами и крупными пикселями.
+              Загрузите аудиофайл, и сервис автоматически выделит мелодию, распределит
+              ноты по каналам NES и синтезирует настоящий чиптюн с ограничениями 8-битной приставки.
             </p>
+            <ul class="chip-list">
+              <li>MP3, M4A и WAV конвертируются в моно WAV 16-bit / 44.1 кГц с помощью FFmpeg.</li>
+              <li>CREPE или pYIN извлекают f₀, pretty_midi создаёт MIDI-события с квантованием и фильтрацией.</li>
+              <li>Синтезируется две pulse-волны, triangle-бас и шумовой канал с ADSR и биткрашером.</li>
+            </ul>
             <div class="screen__actions">
-              <button class="pixel-button">START GAME</button>
-              <button class="pixel-button pixel-button--ghost">OPTIONS</button>
+              <button class="pixel-button">ЗАГРУЗИТЬ ТРЕК</button>
+              <button class="pixel-button pixel-button--ghost">ОТКРЫТЬ API</button>
             </div>
           </div>
         </div>
 
         <div class="screen__footer">
           <div class="progress">
-            <span class="progress__label">STAGE MAP</span>
+            <span class="progress__label">PIPELINE STATUS</span>
             <div class="progress__bar">
-              <span class="progress__fill" style="width: 65%"></span>
+              <span class="progress__fill" style="width: 78%"></span>
             </div>
           </div>
           <div class="controls">
-            <span class="controls__label">PRESS Ⓐ TO CONFIRM</span>
+            <span class="controls__label">WEB PREVIEW · 60 FPS</span>
             <div class="dpad">
               <span></span>
               <span></span>
@@ -72,33 +76,93 @@
 
       <aside class="sidebar">
         <div class="card">
-          <h2 class="card__title">INVENTORY</h2>
-          <ul class="card__list">
-            <li><span class="dot dot--emerald"></span> EMERALD KEY</li>
-            <li><span class="dot dot--ruby"></span> RUBY POTION</li>
-            <li><span class="dot dot--amber"></span> AMBER MAP</li>
-          </ul>
+          <h2 class="card__title">ПАЙПЛАЙН</h2>
+          <ol class="step-list">
+            <li data-step="01">FFmpeg нормализует входное аудио и конвертирует его в моно WAV 16-bit / 44.1 kHz.</li>
+            <li data-step="02">Spleeter (опционально) отделяет вокал, CREPE/pYIN извлекают кривую f₀ и оценку доверия.</li>
+            <li data-step="03">pretty_midi строит события, алгоритм распределяет голоса по NES-каналам и синтезирует итоговый микс.</li>
+          </ol>
         </div>
         <div class="card">
-          <h2 class="card__title">MISSION</h2>
+          <h2 class="card__title">СТЕК</h2>
           <p class="card__text">
-            Найдите древний артефакт, спрятанный в пиксельном лесу. Следите за
-            уровнем энергии, чтобы не потерять жизни.
+            FastAPI и Celery обрабатывают длительные задания, результаты складываются в S3 или локальное хранилище.
           </p>
-          <div class="card__badges">
-            <span class="badge">HP 3</span>
-            <span class="badge badge--warning">POWER 75%</span>
+          <div class="card__badges card__badges--wrap">
+            <span class="badge">librosa</span>
+            <span class="badge">crepe</span>
+            <span class="badge">pretty_midi</span>
+            <span class="badge">numpy</span>
+            <span class="badge">scipy</span>
+            <span class="badge">Redis</span>
           </div>
         </div>
+        <div class="card">
+          <h2 class="card__title">ПРОСЛУШИВАНИЕ</h2>
+          <p class="card__text">
+            WebAudio OscillatorNode воспроизводит квадратные, треугольные и шумовые каналы прямо в браузере.
+          </p>
+          <ul class="settings-list">
+            <li><span>Tempo</span><span>0.75× · 1× · 1.25×</span></li>
+            <li><span>Duty Cycle</span><span>12.5% · 25% · 50%</span></li>
+            <li><span>Arp Mode</span><span>Off · 3-step</span></li>
+          </ul>
+        </div>
       </aside>
+
+      <section class="panel panel--wide">
+        <header class="panel__header">
+          <span class="panel__eyebrow">Возможности сервиса</span>
+          <h2 class="panel__title">Инструменты для быстрой 8-bit аранжировки</h2>
+        </header>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3 class="feature-card__title">Аранжировка под ограничения NES</h3>
+            <p class="feature-card__text">
+              Главная мелодия и второстепенные голоса получают приоритетные pulse-каналы, бас отправляется в triangle,
+              шумовой канал формирует перкуссию и хай-хэты.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3 class="feature-card__title">Гибкая постобработка</h3>
+            <p class="feature-card__text">
+              Настраивайте ADSR-огибающие, биткрашер, фильтр и вибрато, чтобы добиться нужного уровня ретро-зернистости.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3 class="feature-card__title">API и очередь задач</h3>
+            <p class="feature-card__text">
+              Celery + Redis масштабируют массовые конверсии, REST API позволяет интегрировать сервис в ваш рабочий поток.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel panel--wide panel--terminal">
+        <header class="panel__header">
+          <span class="panel__eyebrow">Пример использования API</span>
+          <h2 class="panel__title">Отправьте трек и получите готовый WAV</h2>
+        </header>
+        <pre class="terminal">
+curl -X POST https://8bit.audio/api/jobs \
+  -F "file=@vocal_take.wav" \
+  -F "channels=pulse1,pulse2,triangle,noise"
+
+# статус задачи
+curl https://8bit.audio/api/jobs/42
+
+# скачать результат
+curl https://8bit.audio/api/jobs/42/render -o forest_run.wav
+        </pre>
+      </section>
     </main>
 
     <footer class="footer">
       <nav class="footer__nav">
-        <span>SELECT</span>
-        <span>LOAD GAME</span>
-        <span>SAVE</span>
-        <span>OPTIONS</span>
+        <span>ДОКУМЕНТАЦИЯ</span>
+        <span>ROADMAP</span>
+        <span>STATUS PAGE</span>
+        <span>DISCORD</span>
       </nav>
       <div class="footer__scanline"></div>
     </footer>
