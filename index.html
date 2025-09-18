@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8-bit Adventure UI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="background-grid"></div>
+    <header class="hud">
+      <div class="hud__logo">PIXEL QUEST</div>
+      <div class="hud__stats">
+        <div class="hud__stat">
+          <span class="hud__label">SCORE</span>
+          <span class="hud__value">001560</span>
+        </div>
+        <div class="hud__stat">
+          <span class="hud__label">WORLD</span>
+          <span class="hud__value">1-2</span>
+        </div>
+        <div class="hud__stat">
+          <span class="hud__label">TIME</span>
+          <span class="hud__value">287</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="frame">
+      <section class="screen">
+        <div class="screen__header">
+          <span class="screen__title">LEVEL SELECT</span>
+          <div class="screen__lights">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="screen__content">
+          <div class="sprite hero"></div>
+          <div class="screen__info">
+            <h1 class="screen__headline">FOREST RUN</h1>
+            <p class="screen__text">
+              Прыгайте по пиксельным платформам, собирайте монеты и избегайте
+              ретро-монстров. Мир выполнен в стилистике приставок Sega и Dendy
+              с контрастными цветами и крупными пикселями.
+            </p>
+            <div class="screen__actions">
+              <button class="pixel-button">START GAME</button>
+              <button class="pixel-button pixel-button--ghost">OPTIONS</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen__footer">
+          <div class="progress">
+            <span class="progress__label">STAGE MAP</span>
+            <div class="progress__bar">
+              <span class="progress__fill" style="width: 65%"></span>
+            </div>
+          </div>
+          <div class="controls">
+            <span class="controls__label">PRESS Ⓐ TO CONFIRM</span>
+            <div class="dpad">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="card">
+          <h2 class="card__title">INVENTORY</h2>
+          <ul class="card__list">
+            <li><span class="dot dot--emerald"></span> EMERALD KEY</li>
+            <li><span class="dot dot--ruby"></span> RUBY POTION</li>
+            <li><span class="dot dot--amber"></span> AMBER MAP</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2 class="card__title">MISSION</h2>
+          <p class="card__text">
+            Найдите древний артефакт, спрятанный в пиксельном лесу. Следите за
+            уровнем энергии, чтобы не потерять жизни.
+          </p>
+          <div class="card__badges">
+            <span class="badge">HP 3</span>
+            <span class="badge badge--warning">POWER 75%</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <nav class="footer__nav">
+        <span>SELECT</span>
+        <span>LOAD GAME</span>
+        <span>SAVE</span>
+        <span>OPTIONS</span>
+      </nav>
+      <div class="footer__scanline"></div>
+    </footer>
+  </body>
+</html>
